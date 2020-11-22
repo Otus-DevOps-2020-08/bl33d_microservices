@@ -26,6 +26,6 @@
   roles:
     - geerlingguy.docker
 
-  tasks:
-    - name: Run reddit app in docker
-      include_tasks: run_docker.yml
+  # tasks:
+  #   - name: Run reddit app in docker
+  #     include_tasks: run_docker.yml

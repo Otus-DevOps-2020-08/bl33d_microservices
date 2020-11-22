@@ -4,4 +4,4 @@ zone                     = "ru-central1-a"
 public_key_path          = "~/.ssh/appuser.pub"
 image_id                 = "fd8fjtn3mj2kfe7h6f0r" # Ubuntu 18.04
 subnet_id                = "e9b8jq70j2bafkcv156b"
-host_count               = "7"
+host_count               = "1"
