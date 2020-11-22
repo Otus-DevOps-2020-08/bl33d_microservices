@@ -2,7 +2,10 @@
 
 [![Build Status](https://travis-ci.com/Otus-DevOps-2020-08/bl33d_microservices.svg?branch=master)](https://travis-ci.com/Otus-DevOps-2020-08/bl33d_microservices)
 
-bl33d Infra repository
+## ДЗ № 14
+
+- Добавлены Dockerfile для микросервисного Reddit App
+- Образы ui и comment оптимизированы
 
 ## ДЗ № 13
 
