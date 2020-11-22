@@ -2,7 +2,7 @@
 - name: Deploy infra
   hosts: localhost
   gather_facts: false
-  
+
   tasks:
     - name: Deploy infra with terraform
       terraform:
