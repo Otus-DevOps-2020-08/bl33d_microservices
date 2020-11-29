@@ -1,5 +1,8 @@
 image: ruby:2.4.2
 
+variables:
+  DATABASE_URL: 'mongodb://mongo/user_posts'
+
 stages:
   - build
   - test
@@ -7,52 +10,21 @@ stages:
   - stage
   - production
 
-branch_review:
-  stage: review
-  script:
-    - echo "Deploy to $CI_ENVIRONMENT_SLUG"
-  environment:
-    name: branch/$CI_COMMIT_REF_NAME
-    url: http://$CI_ENVIRONMENT_SLUG.example.com
-  only:
-    - branches
-  except:
-    - master
+before_script:
+  - cd reddit
+  - bundle install
 
-staging:
-  stage: stage
-  when: manual
-  only:
-    - /^\d+\.\d+\.\d+/
-  script:
-    - echo "Deploy"
-  environment:
-    name: beta
-    url: http://beta.example.com
-
-production:
-  stage: production
-  when: manual
-  only:
-    - /^\d+\.\d+\.\d+/
-  script:
-    - echo "Deploy"
-  environment:
-    name: production
-    url: http://example.com
-
+# -------------
+# Build
+# -------------
 build_job:
   stage: build
   script:
     - echo 'Building'
 
-variables:
-  DATABASE_URL: 'mongodb://mongo/user_posts'
-
-before_script:
-  - cd reddit
-  - bundle install
-
+# -------------
+# Test
+# -------------
 test_unit_job:
   stage: test
   services:
@@ -65,6 +37,21 @@ test_integration_job:
   script:
     - echo 'Testing 2'
 
+# -------------
+# Review
+# -------------
+branch_review:
+  stage: review
+  script:
+    - echo "Deploy to $CI_ENVIRONMENT_SLUG"
+  environment:
+    name: branch/$CI_COMMIT_REF_NAME
+    url: http://$CI_ENVIRONMENT_SLUG.example.com
+  only:
+    - branches
+  except:
+    - master
+
 deploy_job:
   stage: review
   script:
@@ -72,3 +59,31 @@ deploy_job:
   environment:
     name: dev
     url: http://dev.example.com
+
+# -------------
+# Stage
+# -------------
+staging:
+  stage: stage
+  when: manual
+  only:
+    - /^\d+\.\d+\.\d+/
+  script:
+    - echo "Deploy"
+  environment:
+    name: beta
+    url: http://beta.example.com
+
+# -------------
+# Production
+# -------------
+production:
+  stage: production
+  when: manual
+  only:
+    - /^\d+\.\d+\.\d+/
+  script:
+    - echo "Deploy"
+  environment:
+    name: production
+    url: http://example.com
