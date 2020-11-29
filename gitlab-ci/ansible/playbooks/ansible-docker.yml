@@ -1,0 +1,13 @@
+---
+- name: Install pip
+  apt:
+    name:
+    - python3-pip
+    - libffi-dev
+
+# We need downgrade json schema cuz we have python <3.8, more info here https://blog.gaborschulz.com/my-jupyter-notebook-stopped-working.html
+- name: Install docker-compose and downgrade jsonschema for python
+  pip:
+    name:
+      - docker-compose
+      - jsonschema==3.0.2

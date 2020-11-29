@@ -1,0 +1,19 @@
+---
+- name: Create directory for data volumes
+  file:
+    path: '{{ item }}'
+    state: directory
+    mode: '0755'
+  with_items:
+    - /srv/gitlab/config
+    - /srv/gitlab/data
+    - /srv/gitlab/logs
+
+- name: Create docker-compose for gitlab
+  template:
+    src: ../templates/docker-compose.yml.j2
+    dest: /srv/gitlab/docker-compose.yml
+
+- name: run docker-compose up
+  docker_compose:
+    project_src: /srv/gitlab/
