@@ -35,12 +35,12 @@ volumes:
 
 networks:
   back_net:
-    name: back_net
+#    name: back_net
     ipam:
       config:
         - subnet: 10.0.2.0/24
   front_net:
-    name: front_net
+#    name: front_net
     ipam:
       config:
         - subnet: 10.0.1.0/24
