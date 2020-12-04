@@ -2,6 +2,14 @@
 
 [![Build Status](https://travis-ci.com/Otus-DevOps-2020-08/bl33d_microservices.svg?branch=master)](https://travis-ci.com/Otus-DevOps-2020-08/bl33d_microservices)
 
+## ДЗ № 15
+
+Базовое имя проекта docker-compose образуется из названия каталога проекта.
+Это можно изменить, установив переменную окружения COMPOSE_PROJECT_NAME или с помощью ключа -p, например `docker-compose -p my_project_name up`
+
+- Выполнены практические задания
+- Добавлены проект docker-compose и override файл к нему
+
 ## ДЗ № 14
 
 - Добавлены Dockerfile для микросервисного Reddit App
