@@ -1,0 +1,27 @@
+---
+- name: Install and register runner
+  hosts: all
+  become: true
+  vars:
+    gitlab_runner_token: p1Z9xCNsNThQweLgfxCs
+
+  tasks:
+    - name: Create config directory for runner
+      file:
+        path: /srv/gitlab-runner/config
+        state: directory
+        mode: '0755'
+
+    - name: Create docker-compose for gitlab
+      template:
+        src: ../templates/docker-compose-runner.yml.j2
+        dest: /srv/gitlab-runner/docker-compose.yml
+        mode: '0750'
+
+# This solution works, but it is not indempotent.
+# On rerun, another runner will be registered in gitlab.
+# When starting the registration of the runner through ansible, we need to register the state of the already registered ones,
+# possibly in a file that, upon restart, should be parsed and saved in facts.
+    - name: install and register gitlab-runner via docker-compose
+      docker_compose:
+        project_src: /srv/gitlab-runner/
