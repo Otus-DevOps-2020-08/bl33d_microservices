@@ -3,7 +3,7 @@
   hosts: all
   become: true
   vars:
-    gitlab_runner_token: p1Z9xCNsNThQweLgfxCs
+    gitlab_runner_token: <YOUR_RUNNER_TOKEN_HERE>
 
   tasks:
     - name: Create config directory for runner
