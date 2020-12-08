@@ -1,0 +1,104 @@
+image: ruby:2.4.2
+
+variables:
+  DATABASE_URL: 'mongodb://mongo/user_posts'
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_TLS_CERTDIR: ""
+
+services:
+  - docker:19.03.13-dind
+
+stages:
+  - build
+  - test
+  - review
+  - stage
+  - production
+
+# -------------
+# Build
+# -------------
+build_job:
+  stage: build
+  image: docker:19.03.13
+  before_script:
+    - mkdir -p $HOME/.docker
+    - echo $DOCKER_AUTH_CONFIG > $HOME/.docker/config.json
+  script:
+    - docker build -t tomorrowcanw8/otus-reddit:${CI_COMMIT_BRANCH}_${CI_COMMIT_SHORT_SHA} -f gitlab-ci/Dockerfile .
+    - docker push tomorrowcanw8/otus-reddit:${CI_COMMIT_BRANCH}_${CI_COMMIT_SHORT_SHA}
+
+# -------------
+# Test
+# -------------
+test_unit_job:
+  stage: test
+  image: ruby:2.4.2
+  before_script:
+    - cd reddit
+    - bundle install
+  services:
+    - mongo:latest
+  script:
+    - ruby simpletest.rb
+
+test_integration_job:
+  stage: test
+  script:
+    - echo 'Testing 2'
+
+# -------------
+# Review
+# -------------
+branch_review:
+  stage: review
+  image: docker:19.03.13
+  before_script:
+    - mkdir -p $HOME/.docker
+    - echo $DOCKER_AUTH_CONFIG > $HOME/.docker/config.json
+  script:
+    - echo "Deploy to $CI_ENVIRONMENT_SLUG"
+    - docker run --name reddit -d tomorrowcanw8/otus-reddit:${CI_COMMIT_BRANCH}_${CI_COMMIT_SHORT_SHA}
+  environment:
+    name: branch/$CI_COMMIT_REF_NAME
+    url: http://$CI_ENVIRONMENT_SLUG.example.com
+  only:
+    - branches
+  except:
+    - master
+
+deploy_job:
+  stage: review
+  script:
+    - echo 'Deploy'
+  environment:
+    name: dev
+    url: http://dev.example.com
+
+# -------------
+# Stage
+# -------------
+staging:
+  stage: stage
+  when: manual
+  only:
+    - /^\d+\.\d+\.\d+/
+  script:
+    - echo "Deploy"
+  environment:
+    name: beta
+    url: http://beta.example.com
+
+# -------------
+# Production
+# -------------
+production:
+  stage: production
+  when: manual
+  only:
+    - /^\d+\.\d+\.\d+/
+  script:
+    - echo "Deploy"
+  environment:
+    name: production
+    url: http://example.com

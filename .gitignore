@@ -4,3 +4,4 @@ terraform-bot-key.json
 backend.tf
 geerlingguy.docker
 packer-bot-key.json
+versions.tf
