@@ -1,0 +1,31 @@
+---
+- name: Deploy infra
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Deploy infra with terraform
+      terraform:
+        project_path: ../../terraform
+        state: present
+
+    - meta: refresh_inventory
+
+- name: Install Docker
+  hosts: all
+  become: true
+  gather_facts: false
+
+  pre_tasks:
+    - name: Wait ssh
+      wait_for_connection:
+
+    - name: Gather facts
+      setup:
+
+  roles:
+    - geerlingguy.docker
+
+  # tasks:
+  #   - name: Run reddit app in docker
+  #     include_tasks: run_docker.yml
