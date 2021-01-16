@@ -65,6 +65,14 @@ services:
     networks:
       - back_net
 
+  blackbox-exporter:
+    image: ${USER_NAME}/blackbox-exporter:${BBOX_EXP_VER}
+    ports:
+      - 9115:9115
+    networks:
+      - front_net
+      - back_net
+
 
 volumes:
   post_db:

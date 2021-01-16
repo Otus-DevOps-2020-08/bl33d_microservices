@@ -5,3 +5,5 @@ backend.tf
 geerlingguy.docker
 packer-bot-key.json
 versions.tf
+terraform.tfstate
+terraform.tfstate.backup
