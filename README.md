@@ -6,6 +6,11 @@
 
 [Ссылка на dockerhub](https://hub.docker.com/u/tomorrowcanw8).
 
+- Выполнен рефакторинг структуры проекта
+- Написаны Dockerfile для promeheus, mongodb-exporter и blackbox-exporter
+- В проект добавлены новые контейнеры (prome, mongodb-exporter, blackbox-exporter)
+- Написан Makefile
+
 ## ДЗ № 16
 
 [Ссылка на канал в slack](https://app.slack.com/client/T6HR0TUP3/C01AGQLQVQU) для проверки интеграции с GitLab CI.
