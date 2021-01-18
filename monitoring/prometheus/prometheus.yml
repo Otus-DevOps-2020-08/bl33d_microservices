@@ -31,7 +31,7 @@ scrape_configs:
   - job_name: 'blackbox-reddit-app'
     metrics_path: /probe
     params:
-      module: 
+      module:
         - http_2xx_reddit_app
     static_configs:
       - targets:
