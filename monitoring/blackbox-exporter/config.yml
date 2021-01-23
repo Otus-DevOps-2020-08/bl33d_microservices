@@ -1,0 +1,47 @@
+modules:
+  http_2xx_reddit_app:
+    prober: http
+    timeout: 5s
+    http:
+      # headers:
+      #   Host: comment
+      fail_if_body_matches_regexp:
+        - '^{"status":(0|\s0).*'
+      fail_if_body_not_matches_regexp:
+        - '^{"status":(1|\s1).*'
+      preferred_ip_protocol: "ip4"
+
+### Default modules
+
+  http_2xx:
+    prober: http
+  http_post_2xx:
+    prober: http
+    http:
+      method: POST
+  tcp_connect:
+    prober: tcp
+  pop3s_banner:
+    prober: tcp
+    tcp:
+      query_response:
+      - expect: "^+OK"
+      tls: true
+      tls_config:
+        insecure_skip_verify: false
+  ssh_banner:
+    prober: tcp
+    tcp:
+      query_response:
+      - expect: "^SSH-2.0-"
+  irc_banner:
+    prober: tcp
+    tcp:
+      query_response:
+      - send: "NICK prober"
+      - send: "USER prober prober prober :prober"
+      - expect: "PING :([^ ]+)"
+        send: "PONG ${1}"
+      - expect: "^:[^ ]+ 001"
+  icmp:
+    prober: icmp
