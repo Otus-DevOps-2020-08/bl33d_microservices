@@ -2,6 +2,17 @@
 
 [![Build Status](https://travis-ci.com/Otus-DevOps-2020-08/bl33d_microservices.svg?branch=master)](https://travis-ci.com/Otus-DevOps-2020-08/bl33d_microservices)
 
+## ДЗ № 18
+
+[Ссылка на dockerhub](https://hub.docker.com/u/tomorrowcanw8).
+
+- Развернут EFK стек
+- Включен централизованный сбор логов для post и ui сервисов
+- Развернут Zipkin
+- Включен трейсинг
+
+Версия приложения с "ошибкой" долго обрабатывает посты из-за `time.sleep(3)` на [167 строке](https://github.com/Artemmkin/bugged-code/blob/master/post-py/post_app.py#L167) в функции find_post.
+
 ## ДЗ № 17
 
 [Ссылка на dockerhub](https://hub.docker.com/u/tomorrowcanw8).
