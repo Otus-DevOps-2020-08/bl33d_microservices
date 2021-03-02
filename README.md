@@ -2,6 +2,11 @@
 
 [![Build Status](https://travis-ci.com/Otus-DevOps-2020-08/bl33d_microservices.svg?branch=master)](https://travis-ci.com/Otus-DevOps-2020-08/bl33d_microservices)
 
+## ДЗ № 19
+
+- В GCP развернут kuber кластер версии 1.18, следуя руководству kubernetes-the-hard-way
+- Написаны и пременены манифесты для деплойментов Reddit App
+
 ## ДЗ № 18
 
 [Ссылка на dockerhub](https://hub.docker.com/u/tomorrowcanw8).
