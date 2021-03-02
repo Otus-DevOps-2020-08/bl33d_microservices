@@ -2,6 +2,12 @@
 
 [![Build Status](https://travis-ci.com/Otus-DevOps-2020-08/bl33d_microservices.svg?branch=master)](https://travis-ci.com/Otus-DevOps-2020-08/bl33d_microservices)
 
+## ДЗ № 20
+
+- Развернут миникуб
+- Обновлены манифесты для Reddit app, приложение запущено в локальном кластере миникуба
+- Приложение запущено к кластере GCP
+
 ## ДЗ № 19
 
 - В GCP развернут kuber кластер версии 1.18, следуя руководству kubernetes-the-hard-way
